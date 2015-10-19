@@ -35,13 +35,14 @@ ActiveRecord::Schema.define(version: 20151019033522) do
   end
 
   create_table "todos", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
+    t.string   "title",        limit: 255
+    t.text     "description",  limit: 65535
     t.date     "deadline"
-    t.integer  "creator_id",  limit: 4,     null: false
-    t.integer  "executor_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "creator_id",   limit: 4,     null: false
+    t.integer  "executor_id",  limit: 4
+    t.integer  "completer_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -6,6 +6,7 @@ class CreateTodos < ActiveRecord::Migration
       t.date :deadline
       t.integer :creator_id, null: false
       t.integer :executor_id
+      t.integer :completer_id
 
       t.timestamps null: false
     end
