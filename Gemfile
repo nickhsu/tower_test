@@ -46,5 +46,4 @@ group :development do
   gem 'thin'
 end
 
-gem 'pundit'
 gem 'devise'
