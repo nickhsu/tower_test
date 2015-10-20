@@ -1,6 +1,14 @@
 FactoryGirl.define do
   factory :project do
-    name Faker::App.name
+    transient do
+      users []
+    end
+
+    name { Faker::App.name }
     team
+
+    after(:create) do |project, evaluator|
+      evaluator.users.each { |u| create(:access, project: project, user: u) }
+    end
   end
 end

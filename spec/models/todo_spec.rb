@@ -11,8 +11,9 @@ RSpec.describe Todo, type: :model do
       it "should create related event" do
         event = Event.last
 
-        expect(event.todo.title).to eq(@todo.title)
+        expect(event.todo_id).to eq(@todo.id)
         expect(event.actor_id).to eq(@todo.creator_id)
+        expect(event.project_id).to eq(@todo.project_id)
         expect(event.event_type).to eq(Event::TYPE_TODO_CREATE)
       end
     end
@@ -30,6 +31,7 @@ RSpec.describe Todo, type: :model do
 
         expect(event.deleted_todo_title).to eq(@title)
         expect(event.actor_id).to eq(@user.id)
+        expect(event.project_id).to eq(@todo.project_id)
         expect(event.event_type).to eq(Event::TYPE_TODO_DELETE)
       end
     end
@@ -46,6 +48,7 @@ RSpec.describe Todo, type: :model do
 
         expect(event.todo_id).to eq(@todo.id)
         expect(event.actor_id).to eq(@user.id)
+        expect(event.project_id).to eq(@todo.project_id)
         expect(event.event_type).to eq(Event::TYPE_TODO_COMPLETE)
       end
     end
@@ -63,6 +66,7 @@ RSpec.describe Todo, type: :model do
 
         expect(event.todo_id).to eq(@todo.id)
         expect(event.actor_id).to eq(@user.id)
+        expect(event.project_id).to eq(@todo.project_id)
         expect(event.old_completer_id).to eq(nil)
         expect(event.new_completer_id).to eq(@other_user.id)
         expect(event.event_type).to eq(Event::TYPE_TODO_ASSIGN_COMPLETER)
@@ -82,6 +86,7 @@ RSpec.describe Todo, type: :model do
 
         expect(event.todo_id).to eq(@todo.id)
         expect(event.actor_id).to eq(@user.id)
+        expect(event.project_id).to eq(@todo.project_id)
         expect(event.old_completer_id).to eq(@other_user.id)
         expect(event.new_completer_id).to eq(@user.id)
         expect(event.event_type).to eq(Event::TYPE_TODO_CHANGE_COMPLETER)
@@ -102,6 +107,7 @@ RSpec.describe Todo, type: :model do
         expect(event.old_deadline).to eq(nil)
         expect(event.new_deadline).to eq(@date_now.to_formatted_s(:db))
         expect(event.actor_id).to eq(@user.id)
+        expect(event.project_id).to eq(@todo.project_id)
         expect(event.event_type).to eq(Event::TYPE_TODO_CHANGE_DEADLINE)
       end
     end
@@ -123,6 +129,7 @@ RSpec.describe Todo, type: :model do
 
         expect(event.actor_id).to eq(@user.id)
         expect(event.todo_id).to eq(@todo.id)
+        expect(event.project_id).to eq(@todo.project_id)
         expect(event.event_type).to eq(Event::TYPE_TODO_ADD_COMMENT)
       end
     end
