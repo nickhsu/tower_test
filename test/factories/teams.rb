@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :team do
-    name Faker::App.name
+    name Faker::Team.name
   end
 
 end

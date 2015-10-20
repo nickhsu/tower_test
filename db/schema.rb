@@ -30,7 +30,9 @@ ActiveRecord::Schema.define(version: 20151019070536) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string   "type",       limit: 255
+    t.integer  "actor_id",   limit: 4,     null: false
+    t.string   "event_type", limit: 255,   null: false
+    t.integer  "todo_id",    limit: 4
     t.text     "extentions", limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
@@ -53,11 +55,13 @@ ActiveRecord::Schema.define(version: 20151019070536) do
     t.string   "title",        limit: 255
     t.text     "description",  limit: 65535
     t.date     "deadline"
-    t.integer  "creator_id",   limit: 4,     null: false
+    t.boolean  "completed",                  default: false, null: false
+    t.integer  "creator_id",   limit: 4,                     null: false
     t.integer  "executor_id",  limit: 4
     t.integer  "completer_id", limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "project_id",   limit: 4
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -72,6 +76,7 @@ ActiveRecord::Schema.define(version: 20151019070536) do
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
     t.integer  "team_id",                limit: 4
+    t.string   "name",                   limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
   end
