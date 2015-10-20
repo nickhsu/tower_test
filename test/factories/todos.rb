@@ -1,10 +1,10 @@
 FactoryGirl.define do
-  factory :todo_a, class: Todo do
+  factory :todo do
     title Faker::Hacker.say_something_smart
     description Faker::Hacker.say_something_smart
+    project
 
-    association :creator, :factory => :user_a
-    association :project, :factory => :project_a
+    association :creator, :factory => :user
   end
 
 end

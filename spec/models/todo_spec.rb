@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Todo, type: :model do
   before(:each) do
-    @todo = create(:todo_a)
-    @user = @todo.creator
+    @user = create(:user)
+    @todo = create(:todo, creator: @user)
   end
 
   describe "#create" do
@@ -54,8 +54,8 @@ RSpec.describe Todo, type: :model do
   describe "#assign_completer" do
     context "when assign a completer" do
       before do
-        @user_b = create(:user_b)
-        @todo.assign_completer(@user.id, @user_b.id)
+        @other_user = create(:user)
+        @todo.assign_completer(@user.id, @other_user.id)
       end
 
       it "should create related event" do
@@ -64,16 +64,16 @@ RSpec.describe Todo, type: :model do
         expect(event.todo_id).to eq(@todo.id)
         expect(event.actor_id).to eq(@user.id)
         expect(event.old_completer_id).to eq(nil)
-        expect(event.new_completer_id).to eq(@user_b.id)
+        expect(event.new_completer_id).to eq(@other_user.id)
         expect(event.event_type).to eq(Event::TYPE_TODO_ASSIGN_COMPLETER)
       end
     end
 
     context "when assign a completer again" do
       before do
-        @user_b = create(:user_b)
+        @other_user = create(:user)
 
-        @todo.assign_completer(@user.id, @user_b.id)
+        @todo.assign_completer(@user.id, @other_user.id)
         @todo.assign_completer(@user.id, @user.id)
       end
 
@@ -82,7 +82,7 @@ RSpec.describe Todo, type: :model do
 
         expect(event.todo_id).to eq(@todo.id)
         expect(event.actor_id).to eq(@user.id)
-        expect(event.old_completer_id).to eq(@user_b.id)
+        expect(event.old_completer_id).to eq(@other_user.id)
         expect(event.new_completer_id).to eq(@user.id)
         expect(event.event_type).to eq(Event::TYPE_TODO_CHANGE_COMPLETER)
       end
