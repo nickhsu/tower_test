@@ -23,7 +23,7 @@ RSpec.describe Todo, type: :model do
     context "when delete a todo" do
       before do
         @title = @todo.title
-        @todo.delete(@user.id)
+        @todo.delete(@user)
       end
 
       it "should create related event" do
@@ -40,7 +40,7 @@ RSpec.describe Todo, type: :model do
   describe "#complete" do
     context "when complete a todo" do
       before do
-        @todo.complete(@user.id)
+        @todo.complete(@user)
       end
 
       it "should create related event" do
@@ -58,7 +58,7 @@ RSpec.describe Todo, type: :model do
     context "when assign a completer" do
       before do
         @other_user = create(:user)
-        @todo.assign_completer(@user.id, @other_user.id)
+        @todo.assign_completer(@user, @other_user)
       end
 
       it "should create related event" do
@@ -77,8 +77,8 @@ RSpec.describe Todo, type: :model do
       before do
         @other_user = create(:user)
 
-        @todo.assign_completer(@user.id, @other_user.id)
-        @todo.assign_completer(@user.id, @user.id)
+        @todo.assign_completer(@user, @other_user)
+        @todo.assign_completer(@user, @user)
       end
 
       it "should create related event" do
@@ -98,7 +98,7 @@ RSpec.describe Todo, type: :model do
     context "when change deadline" do
       before do
         @date_now = Date.current
-        @todo.change_deadline(@user.id, @date_now)
+        @todo.change_deadline(@user, @date_now)
       end
 
       it "should create related event" do
