@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20151019070536) do
 
   create_table "events", force: :cascade do |t|
     t.integer  "actor_id",   limit: 4,     null: false
+    t.integer  "project_id", limit: 4
     t.string   "event_type", limit: 255,   null: false
-    t.integer  "todo_id",    limit: 4
     t.text     "extentions", limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false

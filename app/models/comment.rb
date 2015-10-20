@@ -6,6 +6,7 @@ class Comment < ActiveRecord::Base
     Event.create(
         actor_id: user_id,
         todo_id: todo_id,
+        project_id: todo.project.id,
         event_type: Event::TYPE_TODO_ADD_COMMENT
     )
   end

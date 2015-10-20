@@ -11,6 +11,7 @@ class Todo < ActiveRecord::Base
     Event.create(
         actor_id: creator_id,
         todo_id: id,
+        project_id: project.id,
         event_type: Event::TYPE_TODO_CREATE
     )
   end
@@ -19,6 +20,7 @@ class Todo < ActiveRecord::Base
     Event.create(
         actor_id: actor_id,
         todo_id: id,
+        project_id: project.id,
         deleted_todo_title: title,
         event_type: Event::TYPE_TODO_DELETE
     ) if destroy
@@ -28,6 +30,7 @@ class Todo < ActiveRecord::Base
     Event.create(
         actor_id: actor_id,
         todo_id: id,
+        project_id: project.id,
         event_type: Event::TYPE_TODO_COMPLETE
     ) if update(completed: true)
   end
@@ -36,6 +39,7 @@ class Todo < ActiveRecord::Base
     data = {
         actor_id: actor_id,
         todo_id: id,
+        project_id: project.id,
         old_completer_id: nil,
         new_completer_id: new_completer_id,
         event_type: Event::TYPE_TODO_ASSIGN_COMPLETER
@@ -53,6 +57,7 @@ class Todo < ActiveRecord::Base
     Event.create(
         actor_id: actor_id,
         todo_id: id,
+        project_id: project.id,
         old_deadline: old_deadline,
         new_deadline: new_deadline,
         event_type: Event::TYPE_TODO_CHANGE_DEADLINE

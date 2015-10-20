@@ -11,7 +11,6 @@ class Event < ActiveRecord::Base
   TYPE_TODO_REOPEN = "type_todo_reopen"
 
   #relations
-  belongs_to :todo
   belongs_to :actor, class_name: "User", foreign_key: :actor_id
 
   store :extentions,
@@ -22,6 +21,7 @@ class Event < ActiveRecord::Base
             :old_deadline,
             :new_deadline,
             :comment_id,
+            :todo_id
         ],
         coder: JSON
 end

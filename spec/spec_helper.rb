@@ -19,6 +19,7 @@
 
 require 'factory_girl'
 require 'database_cleaner'
+require 'devise'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -52,6 +53,9 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
+
+  # devise
+  config.include Devise::TestHelpers, :type => :controller
 
   # The settings below are suggested to provide a good initial experience
   # with RSpec, but feel free to customize to your heart's content.
