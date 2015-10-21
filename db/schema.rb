@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20151019070536) do
     t.datetime "updated_at",             null: false
   end
 
+  add_index "accesses", ["project_id"], name: "index_accesses_on_project_id", using: :btree
+  add_index "accesses", ["user_id"], name: "index_accesses_on_user_id", using: :btree
+
   create_table "comments", force: :cascade do |t|
     t.text     "content",    limit: 65535
     t.integer  "todo_id",    limit: 4
@@ -28,6 +31,9 @@ ActiveRecord::Schema.define(version: 20151019070536) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  add_index "comments", ["todo_id"], name: "index_comments_on_todo_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.integer  "actor_id",   limit: 4,     null: false
@@ -38,12 +44,17 @@ ActiveRecord::Schema.define(version: 20151019070536) do
     t.datetime "updated_at",               null: false
   end
 
+  add_index "events", ["actor_id"], name: "index_events_on_actor_id", using: :btree
+  add_index "events", ["project_id"], name: "index_events_on_project_id", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.integer  "team_id",    limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "projects", ["team_id"], name: "index_projects_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -63,6 +74,10 @@ ActiveRecord::Schema.define(version: 20151019070536) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
+
+  add_index "todos", ["completer_id"], name: "index_todos_on_completer_id", using: :btree
+  add_index "todos", ["creator_id"], name: "index_todos_on_creator_id", using: :btree
+  add_index "todos", ["executor_id"], name: "index_todos_on_executor_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
